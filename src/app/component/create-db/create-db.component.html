@@ -1,0 +1,24 @@
+<h3>Upload your database</h3>
+<input type="text" [(ngModel)]="db_name" class="form-control">
+<form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
+  <div class="row">
+    <div class="col-sm-12">
+      <div>
+        <h6 class="head-title margin-top-8"><span>UPLOAD</span></h6>
+      </div>
+    </div>
+
+    <div class="col-sm-6 text-center">
+
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="customFile" name="myfile"
+               (change)="onFileSelect($event)" #UploadFileInput>
+        <label class="custom-file-label" for="customFile">{{fileInputLabel || 'Choose File'}}</label>
+      </div>
+
+    </div>
+    <div class="col-sm-6 text-center">
+      <button class="btn btn-primary" type="submit">Upload</button>
+    </div>
+  </div>
+</form>
