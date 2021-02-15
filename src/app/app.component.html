@@ -1,20 +1,30 @@
 <div class="mx-auto">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div>
-      <a class="navbar-brand" routerLink="/login">Portal</a>
+      <a class="navbar-brand" routerLink="/login">SQL-портал</a>
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse">
+    <div *ngIf="user && user.role!=='ADMIN'" class="collapse navbar-collapse">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/all-courses">Courses</a>
+          <a class="nav-link" routerLink="/all-courses">Курсы</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/all-dbs">DBs</a>
+          <a class="nav-link" routerLink="/all-dbs">Базы данных</a>
         </li>
+      </ul>
+    </div>
+    <div *ngIf="user && user.role==='ADMIN'" class="collapse navbar-collapse">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/all-users">Пользователи</a>
+        </li>
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" routerLink="/all-dbs">Базы данных</a>-->
+<!--        </li>-->
       </ul>
     </div>
     <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">

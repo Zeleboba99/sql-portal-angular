@@ -15,6 +15,7 @@ export class CreateDbComponent implements OnInit {
   fileUploadForm: FormGroup;
   fileInputLabel: string;
   private db_name = '';
+  file: any = null;
 
   constructor(private excelService: ExcelService,
               private dbService: DbService,

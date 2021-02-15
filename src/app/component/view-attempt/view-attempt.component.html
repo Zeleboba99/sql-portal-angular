@@ -1,0 +1,30 @@
+<h5 style="text-align: center">Просмотр попытки ({{attempt.createdAt}})</h5>
+<div class="row">
+  <div *ngIf="serverError" class="alert alert-danger">{{serverError}}</div>
+  <div *ngIf="attempt.questions" class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let question of attempt.questions">
+        <div class="row">
+          <div class="col-md">
+            <div class="row">
+              <div class="col-md-9">
+                <div class="card border-0">
+                  <h6>{{attempt.questions.indexOf(question)+1}}. &nbsp;{{question.text}}</h6>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md">
+                <div class="card border-0" >
+                  <p><i>Ваш ответ:</i></p>
+                  <p style="white-space: pre-wrap;">{{question.answer.text}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+<!--    <button class="btn btn-secondary" (click)="onSendTest()">Отправить тест</button>-->
+  </div>
+</div>

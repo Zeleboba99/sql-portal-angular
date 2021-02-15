@@ -1,0 +1,27 @@
+<ng-container *ngIf="course_id">
+  <h5 style="text-align: center">Редактирование курса</h5>
+</ng-container>
+<ng-container *ngIf="!course_id">
+  <h5 style="text-align: center">Создание курса</h5>
+</ng-container>
+<form>
+  <div *ngIf="serverError" class="alert alert-danger">{{serverError}}</div>
+  <label class="mt-2 ml-4">Название курса</label>
+  <input type="text" name="courseName" #courseName=ngModel class="form-control" placeholder="Название курса" [(ngModel)]="course.name" required>
+  <div *ngIf="courseName.invalid && (courseName.dirty || courseName.touched)"
+       class="alert alert-danger">
+    <div *ngIf="courseName.errors.required">
+      Пожалуйста, укажите название курса.
+    </div>
+  </div>
+  <label class="mt-2 ml-4">Описание курса</label>
+  <textarea type="text" name="courseDescription" class="form-control" placeholder="Описание курса"
+            [(ngModel)]="course.description"></textarea>
+  <ng-container *ngIf="course_id">
+    <button [disabled]="courseName.invalid" class="btn btn-secondary" (click)="onUpdateCourseClick()">Обновить</button>
+  </ng-container>
+  <ng-container *ngIf="!course_id">
+    <button [disabled]="courseName.invalid" class="btn btn-secondary" (click)="onCreateCourseClick()">Создать</button>
+  </ng-container>
+</form>
+

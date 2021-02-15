@@ -22,6 +22,18 @@ import {AccessGuard} from './guard/access.guard';
 import {AuthService} from './service/auth.service';
 import {DbService} from './service/db.service';
 import { DbComponent } from './component/db/db.component';
+import { CreateCourseComponent } from './component/create-course/create-course.component';
+import { CourseComponent } from './component/course/course.component';
+import {TestService} from './service/test.service';
+import {CreateTestComponent} from './component/create-test/create-test.component';
+import { TestComponent } from './component/test/test.component';
+import { AttemptsComponent } from './component/attempts/attempts.component';
+import { ViewAttemptComponent } from './component/view-attempt/view-attempt.component';
+import { AceEditorModule } from 'ng2-ace-editor';
+import { AllUsersComponent } from './component/all-users/all-users.component';
+import { CreateUserComponent } from './component/create-user/create-user.component';
+import { ChooseUserComponent } from './component/choose-user/choose-user.component';
+import { CheckAttemptComponent } from './component/check-attempt/check-attempt.component';
 
 // the second parameter 'fr-FR' is optional
 registerLocaleData(localeRu, 'ru');
@@ -35,13 +47,24 @@ registerLocaleData(localeRu, 'ru');
     AllDbsComponent,
     AllCoursesComponent,
     LoginComponent,
-    DbComponent
+    DbComponent,
+    CreateCourseComponent,
+    CourseComponent,
+    CreateTestComponent,
+    TestComponent,
+    AttemptsComponent,
+    ViewAttemptComponent,
+    AllUsersComponent,
+    CreateUserComponent,
+    ChooseUserComponent,
+    CheckAttemptComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    AceEditorModule,
     RouterModule.forRoot(
       [
         {path: 'create-db', component: CreateDbComponent, canActivate: [AccessGuard]},
@@ -49,7 +72,17 @@ registerLocaleData(localeRu, 'ru');
         {path: 'all-dbs', component: AllDbsComponent, canActivate: [AccessGuard]},
         {path: 'all-courses', component: AllCoursesComponent, canActivate: [AccessGuard]},
         {path: 'login', component: LoginComponent},
-        {path: 'db', component: DbComponent, canActivate: [AccessGuard]}
+        {path: 'db', component: DbComponent, canActivate: [AccessGuard]},
+        {path: 'create-course', component: CreateCourseComponent, canActivate: [AccessGuard]},
+        {path: 'course', component: CourseComponent, canActivate: [AccessGuard]},
+        {path: 'create-test', component: CreateTestComponent, canActivate: [AccessGuard]},
+        {path: 'test', component: TestComponent, canActivate: [AccessGuard]},
+        {path: 'attempts', component: AttemptsComponent, canActivate: [AccessGuard]},
+        {path: 'view-attempt', component: ViewAttemptComponent, canActivate: [AccessGuard]},
+        {path: 'all-users', component: AllUsersComponent, canActivate: [AccessGuard]},
+        {path: 'create-user', component: CreateUserComponent, canActivate: [AccessGuard]},
+        {path: 'choose-user', component: ChooseUserComponent, canActivate: [AccessGuard]},
+        {path: 'check-attempt', component: CheckAttemptComponent, canActivate: [AccessGuard]}
       ]
     )
   ],
@@ -60,6 +93,7 @@ registerLocaleData(localeRu, 'ru');
     AuthService,
     AccessGuard,
     DbService,
+    TestService,
     { provide: CookieService, useFactory: cookieServiceFactory },
     { provide: LOCALE_ID, useValue: 'ru' },
     {

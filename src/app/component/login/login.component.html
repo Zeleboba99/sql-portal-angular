@@ -9,7 +9,7 @@
           <hr>
           <form>
             <div class="form-group">
-              <input name="username" class="form-control" placeholder="Login" [(ngModel)]="signInData.login"
+              <input name="username" class="form-control" placeholder="Логин" [(ngModel)]="signInData.login"
                      #login="ngModel" minlength="1" maxlength="30" required/>
               <div *ngIf="login.invalid && (login.dirty || login.touched)"
                    class="alert alert-danger">
@@ -33,9 +33,6 @@
             </div>
             <button [disabled]="login.invalid || password.invalid" class="btn btn-outline-dark btn-block"
                     style="align-self: center" (click)="signin()" type="submit">Войти
-            </button>
-            <button class="btn btn-outline-dark btn-block"
-                    style="align-self: center" routerLink="/signup" type="submit">Регистрация
             </button>
           </form>
         </article>

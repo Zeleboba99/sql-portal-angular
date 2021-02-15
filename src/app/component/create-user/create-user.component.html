@@ -1,0 +1,33 @@
+<ng-container *ngIf="user_id">
+  <h5 style="text-align: center">Редактирование данных пользователя</h5>
+</ng-container>
+<ng-container *ngIf="!user_id">
+  <h5 style="text-align: center">Создание пользователя</h5>
+</ng-container>
+<form>
+  <div *ngIf="serverError" class="alert alert-danger">{{serverError}}</div>
+  <label class="mt-2 ml-4">Логин</label>
+  <input type="text" name="userLogin" #userLogin=ngModel class="form-control" placeholder="Логин" [(ngModel)]="user.login" required>
+
+  <label class="mt-2 ml-4">Имя</label>
+  <input type="text" name="userFN" #userFN=ngModel class="form-control" placeholder="Имя" [(ngModel)]="user.firstName" required>
+
+  <label class="mt-2 ml-4">Фамилия</label>
+  <input type="text" name="userLN" #userLN=ngModel class="form-control" placeholder="Фамилия" [(ngModel)]="user.lastName" required>
+
+  <label class="mt-2 ml-4">Роль в системе</label>
+  <select class="form-control" name="userRole" #userRole=ngModel [(ngModel)]="user.role" required>
+    <option name="optionDbId" *ngFor="let role of roles" [ngValue]="role.name">{{role.rusName}}</option>
+  </select>
+<!--  <input type="text" name="userRole" class="form-control" placeholder="Роль" [(ngModel)]="user.role">-->
+
+  <label class="mt-2 ml-4">Пароль</label>
+  <input type="password" name="userPswd" #userPswd=ngModel class="form-control" placeholder="Пароль" [(ngModel)]="user.password" required>
+
+  <ng-container *ngIf="user_id">
+    <button [disabled]="userLogin.invalid || userFN.invalid || userLN.invalid || userRole.invalid || userPswd.invalid" class="btn btn-secondary" (click)="onUpdateUserClick()">Обновить</button>
+  </ng-container>
+  <ng-container *ngIf="!user_id">
+    <button [disabled]="userLogin.invalid || userFN.invalid || userLN.invalid || userRole.invalid || userPswd.invalid" class="btn btn-secondary" (click)="onCreateUserClick()">Создать</button>
+  </ng-container>
+</form>

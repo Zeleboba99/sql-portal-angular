@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   private LOGIN = 'login';
   private FIRST_NAME = 'firstName';
   private LAST_NAME = 'lastName';
+  private ROLE = 'role';
   private ID = 'id';
   private TOKEN = 'token';
   public signInData = {login: '', password: ''};
@@ -29,7 +30,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     const user = this.authService.userLoggedIn.getValue();
     if (user) {
-      this.router.navigate(['all-courses']);
+      if (user.role === 'ADMIN') {
+        this.router.navigate(['all-users']);
+      } else {
+        this.router.navigate(['all-courses']);
+      }
     }
   }
 
@@ -45,9 +50,14 @@ export class LoginComponent implements OnInit {
             this.cookieService.put(this.ID, data[this.ID]);
             this.cookieService.put(this.FIRST_NAME, data[this.FIRST_NAME]);
             this.cookieService.put(this.LAST_NAME, data[this.LAST_NAME]);
-            const user = new User(data[this.ID], data[this.LOGIN], data[this.FIRST_NAME], data[this.LAST_NAME], null);
+            this.cookieService.put(this.ROLE, data[this.ROLE]);
+            const user = new User(data[this.ID], data[this.LOGIN], data[this.FIRST_NAME], data[this.LAST_NAME], null, data[this.ROLE]);
             this.authService.userLoggedIn.next(user);
-            this.router.navigate(['/all-courses']);
+            if (user.role === 'ADMIN') {
+              this.router.navigate(['all-users']);
+            } else {
+              this.router.navigate(['all-courses']);
+            }
           }},
         error => {
           this.serverError = 'Данные некорректны';

@@ -1,0 +1,69 @@
+<!--<label for="exampleFormControlTextarea1">База данных: Тестовая бд 1</label>-->
+<!--<ace-editor theme="github" mode="sql" style=" min-height: 150px; overflow: auto;" [(ngModel)]="inputQuery"></ace-editor>-->
+<!--<button class="btn btn-secondary" (click)="onExecuteClick(inputQuery)">Выполнить</button>-->
+<app-db></app-db>
+<h5 style="text-align: center">Тест: {{test.name}}</h5>
+<div class="row">
+  <div *ngIf="serverError" class="alert alert-danger">{{serverError}}</div>
+  <div *ngIf="!isAuthor && test.questions" class="col-md">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let question of test.questions">
+        <div class="row">
+          <div class="col-md">
+            <p>{{test.questions.indexOf(question) + 1}}. &nbsp;{{question.text}}</p>
+            <ace-editor theme="github" mode="sql" style=" min-height: 150px; overflow: auto;"
+                        [(ngModel)]="question.answer.text"></ace-editor>
+
+            <!--            <textarea class="ml-1" rows=6 style=" width:100%;" placeholder="Введите ответ" [(ngModel)]="question.answer.text"></textarea>-->
+          </div>
+        </div>
+      </li>
+    </ul>
+    <button class="btn btn-secondary" (click)="onSendTest()">Отправить тест</button>
+  </div>
+  <div *ngIf="isAuthor" class="col-md">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let question of test.questions">
+        <div class="row">
+          <div class="col-md">
+            <div class="row">
+              <div class="col-md mr-1 ml-1">
+                <div class="row">
+                  <div class="col-md-11">
+                    {{test.questions.indexOf(question) + 1}}.
+                  </div>
+                  <div *ngIf="test.questions.length > 1" class="col-md-1 text-right">
+                    <button class="btn btn-outline-secondary btn-sm"
+                            (click)="onRemoveQuestionClick(test.questions.indexOf(question))"><i
+                      class="fas fa-times"></i></button>
+                  </div>
+                </div>
+                <textarea style=" width:100%;" placeholder="Введите вопрос" [(ngModel)]="question.text"></textarea>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md mr-1 ml-1">
+                <ace-editor theme="github" mode="sql" style=" min-height: 150px; overflow: auto;"
+                            [(ngModel)]="question.answer.text"></ace-editor>
+
+                <!--              <textarea style=" width:100%;" rows=6 placeholder="Введите ответ" id="answerTextarea" [(ngModel)]="question.answer.text"></textarea>-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <button class="btn btn-secondary" (click)="onAddQuestion()">Добавить вопрос</button>
+    <ng-container *ngIf="test_id">
+      <button class="btn btn-secondary" (click)="onUpdateTest()">Обновить тест</button>
+    </ng-container>
+    <ng-container *ngIf="!test_id">
+      <button class="btn btn-secondary" (click)="onSaveTest()">Сохранить тест</button>
+    </ng-container>
+  </div>
+  <!--  <div class="col-md-1">-->
+  <!--    <button type="button" class="btn btn-default btn-sm" (click)="onCreateTestClick()">-->
+  <!--      <i class="fas fa-plus"></i>-->
+  <!--    </button>-->
+  <!--  </div>-->
+</div>

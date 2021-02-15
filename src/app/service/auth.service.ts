@@ -14,7 +14,9 @@ export class AuthService {
   private FIRST_NAME = 'firstName';
   private LAST_NAME = 'lastName';
   private ID = 'id';
+  private ROLE = 'role';
   public userLoggedIn: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+
   constructor(private http: HttpClient, private router: Router,
               private cookieService: CookieService) {
     if (this.cookieService.get(this.LOGIN)) {
@@ -22,14 +24,15 @@ export class AuthService {
       const firstName = this.cookieService.get(this.FIRST_NAME);
       const lastName = this.cookieService.get(this.LAST_NAME);
       const id = this.cookieService.get(this.ID);
-      this.userLoggedIn.next(new User(Number(id), login, firstName, lastName, null));
+      const role = this.cookieService.get(this.ROLE);
+      this.userLoggedIn.next(new User(Number(id), login, firstName, lastName, null, role));
     }
   }
 
   login(signInData) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
+        'Content-Type': 'application/json',
         'Authorization': 'Basic'
       })
     };
@@ -45,17 +48,17 @@ export class AuthService {
     this.cookieService.put(environment.ACCESS_TOKEN, token);
   }
 
-  confirmEmail(token: String) {
-    return this.http.get(this.BASE_URL + '/registrationConfirm?token=' + token);
-  }
-
   logout() {
     this.cookieService.remove(environment.ACCESS_TOKEN);
     this.cookieService.remove(this.LOGIN);
     this.cookieService.remove(this.FIRST_NAME);
     this.cookieService.remove(this.LAST_NAME);
+    this.cookieService.remove(this.ROLE);
     this.userLoggedIn.next(null);
     this.router.navigate(['/login']);
   }
 
+  public isCurrentUserTeacher(): boolean {
+    return this.cookieService.get(this.ROLE) === 'TEACHER';
+  }
 }

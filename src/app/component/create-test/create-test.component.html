@@ -1,0 +1,37 @@
+<ng-container *ngIf="!test_id">
+  <h5 style="text-align: center">Создание теста</h5>
+</ng-container>
+<ng-container *ngIf="test_id">
+  <h5 style="text-align: center">Редактирование теста</h5>
+</ng-container>
+<form>
+  <div *ngIf="serverError" class="alert alert-danger">{{serverError}}</div>
+  <label class="mt-2 ml-4">Название теста</label>
+  <input type="text" name="testName" #testName=ngModel class="form-control" placeholder="Название теста" [(ngModel)]="test.name" required>
+  <div *ngIf="testName.invalid && (testName.dirty || testName.touched)"
+       class="alert alert-danger">
+    <div *ngIf="testName.errors.required">
+      Пожалуйста, укажите название теста.
+    </div>
+  </div>
+  <label class="mt-2 ml-4">Максимальное число попыток</label>
+  <input type="number" name="testMaxAttemptCnt" class="form-control" placeholder="Максимальное число попыток" [(ngModel)]="test.maxAttemptsCnt">
+  <label class="mt-2 ml-4">База данных</label>
+  <select class="form-control" name="selectedDbModel" #selectedDbModel=ngModel [(ngModel)]="selectedDbId" required>
+    <option name="optionDbId" *ngFor="let db of dbs" [ngValue]="db.id">{{db.name}}</option>
+  </select><br>
+  <div *ngIf="selectedDbModel.invalid && (selectedDbModel.dirty || selectedDbModel.touched)"
+       class="alert alert-danger">
+    <div *ngIf="selectedDbModel.errors.required">
+      Пожалуйста, укажите базу данных.
+    </div>
+  </div>
+  <ng-container *ngIf="!test_id">
+    <button [disabled]="testName.invalid || selectedDbModel.invalid" class="btn btn-secondary" (click)="onCreateTestClick()" >Создать</button>
+  </ng-container>
+  <ng-container *ngIf="test_id">
+    <button [disabled]="testName.invalid || selectedDbModel.invalid" class="btn btn-secondary" (click)="onUpdateTestClick()" >Обновить</button>
+  </ng-container>
+</form>
+
+

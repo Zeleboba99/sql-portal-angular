@@ -1,3 +1,31 @@
-<p>
-  db works!
-</p>
+<div class="form-group">
+  <label for="exampleFormControlTextarea1">База данных: {{database.name}}</label>
+  <ace-editor theme="github" mode="sql" style=" min-height: 150px; overflow: auto;" [(ngModel)]="inputQuery"></ace-editor>
+
+<!--  <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="inputQuery" rows="10"></textarea>-->
+  <button class="btn btn-secondary" (click)="onExecuteClick(inputQuery)">Выполнить</button>
+</div>
+<div class="alert alert-danger" *ngIf="queryExecutableError">
+  <span>{{queryExecutableError}}</span>
+</div>
+<div *ngIf="result && !result.length">
+  <span>Result: {{result.length}} rows</span>
+</div>
+<div *ngIf="result && result.length">
+  <span>Result: {{result.length}} rows</span>
+  <table class="table table-bordered table-sm">
+    <thead>
+    <tr>
+      <th scope="col" *ngFor="let colmnName of getColumnNames(result[0])">{{colmnName}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let row of result">
+      <td *ngFor="let value of getRowValues(row)">{{value}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--<input [(ngModel)]="test">-->
+<!--<button (click)="ex()">click</button>-->
