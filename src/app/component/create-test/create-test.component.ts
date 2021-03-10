@@ -56,7 +56,7 @@ export class CreateTestComponent implements OnInit {
   }
 
   onCreateTestClick() {
-    this.test.exhaustedDb.id = this.selectedDbId;
+    this.test.dbLocation.id = this.selectedDbId;
     this.testService.createTest(this.course_id, this.test).subscribe(
       res => {
         this.router.navigate(['course'], {queryParams: {course_id: this.course_id}});

@@ -44,7 +44,7 @@ export class CourseComponent implements OnInit {
   }
 
   onTestClick(test: Test) {
-    this.router.navigate(['test'], {queryParams: {course_id: this.course_id, test_id: test.id, db_id: test.exhaustedDb.id}});
+    this.router.navigate(['test'], {queryParams: {course_id: this.course_id, test_id: test.id, db_id: test.dbLocation.id}});
   }
 
   onCreateTestClick() {

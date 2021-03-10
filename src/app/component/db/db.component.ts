@@ -36,7 +36,7 @@ export class DbComponent implements OnInit {
       console.log(this.database);
 
       this.alaDb = this.createDb(this.database);
-      console.log("create alaDb"); 
+      console.log("create alaDb");
       console.log('alaDb', this.alaDb);
       // const mybase1 = new alasql.Database(this.database.name);
       //   console.log('mybase1', mybase1);
