@@ -8,26 +8,18 @@
           <div class="col-md">
             <div class="row">
               <div class="col-md">
-                {{attempts.indexOf(attempt)+1}}. &nbsp;{{attempt.createdAt}}
+                {{attempts.indexOf(attempt)+1}}. &nbsp;{{convertToDate(attempt.createdAt)}}
               </div>
-              <div class="col-md-2 d-flex justify-content-end">
-                {{attempt.grade}}
-<!--                {{attempt.createdAt}}-->
+              <div class="col-md-3 d-flex justify-content-end">
+                <div *ngIf="isEstimated(attempt)">
+                  {{attempt.mark}}
+                </div>
+                <div *ngIf="!isEstimated(attempt)">
+                  Не оценено
+                </div>
               </div>
-              <!--              <div *ngIf="isCurrentAuthor">-->
-              <!--                <p class="d-inline"><button class="btn btn-sm btn-outline-secondary" (click)="onEditPost(db.id)"> <i class="fas fa-edit fa-xs"></i> </button> </p>-->
-              <!--                <p class="d-inline"><button class="btn btn-sm  btn-outline-secondary" data-toggle="modal" data-target="#modal1" (click)="onDeletePost(db.id)"> <i class="fas fa-trash-alt fa-xs"></i> </button></p>-->
-              <!--              </div>-->
             </div>
-<!--            <div class="row">-->
-<!--              <div class="col-md">-->
-<!--                <div class="card border-0" >-->
-<!--                  <p style="white-space: pre-wrap">{{attempt.grade}}</p>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
           </div>
-
         </div>
       </li>
     </ul>

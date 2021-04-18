@@ -2,6 +2,9 @@
 <div class="row">
   <div class="col-md-11">
     <div *ngIf="serverError" class="alert alert-danger">{{serverError}}</div>
+    <div *ngIf="!dbs || !dbs.length">
+      Базы данных не найдены
+    </div>
     <ul class="list-group">
       <li class="list-group-item interactive" *ngFor="let db of dbs" (click)="onDbClick(db.id)">
         <div class="row">
@@ -17,32 +20,27 @@
               </div>
               <div *ngIf="isCurrentUserAuthor(db)">
                 <p class="d-inline">
-                  <button class="btn btn-sm btn-outline-secondary" (click)="onEditDb(db.id)"><i
+                  <button class="btn btn-sm btn-outline-secondary" title="Редактировать" (click)="onEditDb(db.id)"><i
                     class="fas fa-edit fa-xs"></i></button>
                 </p>
                 <p class="d-inline">
-                  <button class="btn btn-sm  btn-outline-secondary"
+                  <button class="btn btn-sm  btn-outline-secondary" title="Удалить"
                           data-toggle="modal" data-target="#deleteModal" (click)="onSelectDb($event, db)"><i
                     class="fas fa-trash-alt fa-xs"></i></button>
                 </p>
               </div>
             </div>
-            <!--            <div class="d-flex flex-row-reverse">-->
-            <!--              {{db.createdAt | date:'medium'}}-->
-            <!--            </div>-->
           </div>
-
         </div>
       </li>
     </ul>
   </div>
   <div class="col-md-1" *ngIf="isCurrentUserTeacher">
-    <button type="button" class="btn btn-default btn-sm" (click)="onCreateDbClick()">
+    <button type="button" title="Создать базу" class="btn btn-default btn-sm" (click)="onCreateDbClick()">
       <i class="fas fa-plus"></i>
     </button>
   </div>
 </div>
-
 
 <div class="container " align="center" style="margin-top: 20px">
   <div class="col -lg-12" align="center">
@@ -65,7 +63,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <strong>Удалить курс {{selectedDb.name}}?</strong>
+        <strong>Удалить базу данных {{selectedDb.name}}?</strong>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>

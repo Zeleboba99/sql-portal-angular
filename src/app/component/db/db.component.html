@@ -1,8 +1,19 @@
 <div class="form-group">
-  <label for="exampleFormControlTextarea1">База данных: {{database.name}}</label>
-  <ace-editor theme="github" mode="sql" style=" min-height: 150px; overflow: auto;" [(ngModel)]="inputQuery"></ace-editor>
+  <label>База данных: {{database.name}}</label>
+  <div class="container">
+    <img [src]="'data:image/jpeg;base64,'+ dbInfo.schemaImage" *ngIf="dbInfo.schemaImage && !isExpanded">
+    <img [src]="'data:image/jpeg;base64,'+ dbInfo.schemaImage" *ngIf="dbInfo.schemaImage && isExpanded">
+    <button *ngIf="dbInfo.schemaImage && !isExpanded" class="resize-btn btn btn-outline-secondary btn-sm"
+            (click)="onResizeSchema($event)"><i
+      class="fas fa-expand-arrows-alt"></i></button>
+    <button *ngIf="dbInfo.schemaImage && isExpanded" class="resize-btn btn btn-outline-secondary btn-sm"
+            (click)="onResizeSchema($event)"><i
+      class="fas fa-compress-arrows-alt"></i></button>
+  </div>
+  <ace-editor theme="github" mode="sql" style=" min-height: 150px; overflow: auto;"
+              [(ngModel)]="inputQuery"></ace-editor>
 
-<!--  <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="inputQuery" rows="10"></textarea>-->
+  <!--  <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="inputQuery" rows="10"></textarea>-->
   <button class="btn btn-secondary" (click)="onExecuteClick(inputQuery)">Выполнить</button>
 </div>
 <div class="alert alert-danger" *ngIf="queryExecutableError">
@@ -26,6 +37,3 @@
     </tbody>
   </table>
 </div>
-
-<!--<input [(ngModel)]="test">-->
-<!--<button (click)="ex()">click</button>-->

@@ -72,11 +72,6 @@ export class AllUsersComponent implements OnInit {
     this.router.navigate(['create-user']);
   }
 
-  // onUserClick(event, course_id: number) {
-  //   event.stopPropagation();
-  //   this.router.navigate(['us'], {queryParams: {course_id: course_id}});
-  // }
-
   onEditUser(user_id: number) {
     this.router.navigate(['create-user'], {queryParams: {user_id: user_id}});
   }

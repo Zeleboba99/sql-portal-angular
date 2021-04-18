@@ -1,0 +1,20 @@
+.container {
+  position: relative;
+  width: 50%;
+}
+
+.container img {
+  height: auto;
+  width: 100%;
+}
+
+.container:hover .resize-btn{
+  display: initial;
+}
+
+.container .resize-btn {
+  display: none;
+  position: absolute;
+  top: 78%;
+  left: 90%;
+}

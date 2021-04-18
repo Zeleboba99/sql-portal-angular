@@ -24,6 +24,7 @@ export class ChooseUserComponent implements OnInit {
   public userPage;
   public test_id;
   public user_id;
+  public search = '';
 
   constructor(private router: Router,
               private activateRoute: ActivatedRoute,
@@ -38,15 +39,27 @@ export class ChooseUserComponent implements OnInit {
   }
 
   getStudents(page: number, size: number) {
-    this.userService.getAllStudents(page, size).subscribe(
-      res => {
-        this.userPage = res;
-        this.users = res.content;
-      },
-      error => {
-        this.serverError = error;
-      }
-    );
+    if (this.search === '') {
+      this.userService.getAllStudents(page, size).subscribe(
+        res => {
+          this.userPage = res;
+          this.users = res.content;
+        },
+        error => {
+          this.serverError = error;
+        }
+      );
+    } else {
+      this.userService.getAllStudentsBySearch(this.search, page, size).subscribe(
+        res => {
+          this.userPage = res;
+          this.users = res.content;
+        },
+        error => {
+          this.serverError = error;
+        }
+      );
+    }
   }
 
   onPageSelect(page: number) {
@@ -74,5 +87,25 @@ export class ChooseUserComponent implements OnInit {
 
   onAttemptClick(attempt_id: number) {
     this.router.navigate(['check-attempt'], {queryParams: {attempt_id: attempt_id, user_id: this.user_id, test_id: this.test_id}});
+  }
+
+  convertToDate(date: any) {
+    const formattedDate = new Date(date);
+    return formattedDate.toLocaleString('ru-RU', { dateStyle: 'full', timeStyle: 'medium' });
+  }
+
+  isEstimated(attempt: Attempt) {
+    for (let q of attempt.questions) {
+      if (q.answer.grade != null) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  calculateGradeForAttempt(attempt: Attempt) {
+    let grade = 0;
+    attempt.questions.forEach(q => grade += q.answer.grade);
+    return grade / attempt.questions.length;
   }
 }

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../service/auth.service';
 import {Router} from '@angular/router';
 import {DbService} from '../../service/db.service';
-import {Db} from '../../model/db';
+import {DbInfo} from '../../model/db-info';
 import {Course} from '../../model/course';
 
 
@@ -14,9 +14,9 @@ import {Course} from '../../model/course';
 export class AllDbsComponent implements OnInit {
 
   public serverError = '';
-  public dbs: Db[] = [];
+  public dbs: DbInfo[] = [];
   public isCurrentUserTeacher = false;
-  public selectedDb: Db = null;
+  public selectedDb: DbInfo = null;
 
   public selectedPage = 0;
   public size = 5;
@@ -54,7 +54,7 @@ export class AllDbsComponent implements OnInit {
     this.router.navigate(['/db'], {queryParams: {db_id: db_id}});
   }
 
-  isCurrentUserAuthor(db: Db) {
+  isCurrentUserAuthor(db: DbInfo) {
     return this.authService.userLoggedIn.value.id === db.author_id;
   }
 
@@ -66,11 +66,9 @@ export class AllDbsComponent implements OnInit {
 
   }
 
-  onSelectDb(event, db: Db) {
+  onSelectDb(event, db: DbInfo) {
     event.stopPropagation();
     this.selectedDb = db;
-    // document.getElementById('deleteModal').modal('show');
-
     $('#deleteModal').modal('show');
   }
 

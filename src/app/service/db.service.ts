@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {Db} from '../model/db';
+import {DbInfo} from '../model/db-info';
 import {RequestOptions, ResponseContentType} from '@angular/http';
 import {Database} from '../model/database';
 
@@ -14,17 +14,17 @@ export class DbService {
   }
 
   public getDbsByAuthor(author_id, page: number, size: number, sort: boolean) {
-    return this.http.get<Db[]>(this.BASE_URL + '/author/' + author_id + '?page=' + page +
+    return this.http.get<DbInfo[]>(this.BASE_URL + '/author/' + author_id + '?page=' + page +
       '&size=' + size + '&sort=' + sort);
   }
 
   public getAllDbsPage(page: number, size: number, sort: boolean) {
-    return this.http.get<Db[]>(this.BASE_URL + '/pageable' + '?page=' + page +
+    return this.http.get<DbInfo[]>(this.BASE_URL + '/pageable' + '?page=' + page +
       '&size=' + size + '&sort=' + sort);
   }
 
   public getAllDbs() {
-    return this.http.get<Db[]>(this.BASE_URL);
+    return this.http.get<DbInfo[]>(this.BASE_URL);
   }
 
   public getDbById(db_id) {
@@ -39,11 +39,7 @@ export class DbService {
     return this.http.delete(this.BASE_URL + '/' + db_id);
   }
 
-  // public createCourse(course) {
-  //   return this.http.post(this.BASE_URL, course);
-  // }
-  //
-  // public deleteCourse(course_id) {
-  //   return this.http.delete(this.BASE_URL + '/' + course_id);
-  // }
+  getDbInfoById(db_id: number) {
+    return this.http.get<DbInfo>(this.BASE_URL + '/db-info/' + db_id);
+  }
 }

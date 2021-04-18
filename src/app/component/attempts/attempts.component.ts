@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Test} from '../../model/test';
 import {Course} from '../../model/course';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -24,7 +24,8 @@ export class AttemptsComponent implements OnInit {
               private courseService: CourseService,
               private testService: TestService,
               private activateRoute: ActivatedRoute,
-              private authService: AuthService) { }
+              private authService: AuthService) {
+  }
 
   ngOnInit() {
     this.test_id = this.activateRoute.snapshot.queryParams['test_id'];
@@ -46,6 +47,21 @@ export class AttemptsComponent implements OnInit {
   }
 
   onAttemptClick(attempt_id: number) {
-    this.router.navigate(['view-attempt'], { queryParams: {test_id: this.test_id, attempt_id: attempt_id}});
+    this.router.navigate(['view-attempt'], {queryParams: {test_id: this.test_id, attempt_id: attempt_id}});
+  }
+
+  convertToDate(date: any) {
+    const formattedDate = new Date(date);
+    return formattedDate.toLocaleString('ru-RU', {dateStyle: 'full', timeStyle: 'medium'});
+  }
+
+  isEstimated(attempt: Attempt) {
+    return attempt.mark;
+  }
+
+  calculateMarkForAttempt(attempt: Attempt) {
+    let grade = 0;
+    attempt.questions.forEach(q => grade += q.answer.grade);
+    return grade / attempt.questions.length;
   }
 }

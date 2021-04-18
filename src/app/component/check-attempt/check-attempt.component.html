@@ -7,7 +7,7 @@
         <div class="row">
           <div class="col-md">
             <p>{{attempt.questions.indexOf(question) + 1}}. &nbsp;{{question.text}}</p>
-            <input type="number" [(ngModel)]="question.answer.grade" placeholder="Оценка">
+            <input type="number" [(ngModel)]="question.answer.grade" [max]="10" [min]="0" placeholder="Оценка">
             <div class="row">
               <div class="col-md-6">
                 <p>Ответ студента: {{question.answer.text}}</p>
@@ -16,7 +16,6 @@
                 <p>Ваш ответ: {{getRightAnswer(question.id)}}</p>
               </div>
             </div>
-            <!--            <textarea class="ml-1" rows=6 style=" width:100%;" placeholder="Введите ответ" [(ngModel)]="question.answer.text"></textarea>-->
           </div>
         </div>
       </li>

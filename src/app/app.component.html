@@ -22,15 +22,15 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/all-users">Пользователи</a>
         </li>
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link" routerLink="/all-dbs">Базы данных</a>-->
-<!--        </li>-->
       </ul>
     </div>
     <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
       <ul class="navbar-nav ">
         <li class="nav-item text-light" *ngIf="user!=null">
           <a class="nav-link text-light">{{user.firstName}} {{user.lastName}}</a>
+        </li>
+        <li class="nav-item text-light" *ngIf="user!=null">
+          <a class="nav-link text-light"  data-toggle="modal" data-target="#exampleModal">Изменить пароль</a>
         </li>
         <li class="nav-item text-light" *ngIf="user!=null">
           <a class="nav-link text-light" (click)="logout()">Выйти</a>
@@ -45,6 +45,7 @@
         <div class="row">
           <div class="col-md">
             <p></p>
+            <div>{{changePasswordMessage}}</div>
             <router-outlet></router-outlet>
           </div>
         </div>
@@ -53,4 +54,34 @@
   </main>
 </div>
 
-
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Изменить пароль</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <input name="password" class="form-control" placeholder="******" type="password"
+                 [(ngModel)]="newPassword" #password="ngModel" minlength="8" #password="ngModel" required/>
+          <div *ngIf="password.invalid && (password.dirty || password.touched)"
+               class="alert alert-danger">
+            <div *ngIf="password.errors.required">
+              Пожалуйста, укажите пароль.
+            </div>
+            <div *ngIf="password.errors.minlength">
+              Пароль не должен быть короче 8 символов.
+            </div>
+          </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="changePassword()">Change password</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

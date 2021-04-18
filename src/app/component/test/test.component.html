@@ -1,6 +1,3 @@
-<!--<label for="exampleFormControlTextarea1">База данных: Тестовая бд 1</label>-->
-<!--<ace-editor theme="github" mode="sql" style=" min-height: 150px; overflow: auto;" [(ngModel)]="inputQuery"></ace-editor>-->
-<!--<button class="btn btn-secondary" (click)="onExecuteClick(inputQuery)">Выполнить</button>-->
 <app-db></app-db>
 <h5 style="text-align: center">Тест: {{test.name}}</h5>
 <div class="row">
@@ -13,8 +10,6 @@
             <p>{{test.questions.indexOf(question) + 1}}. &nbsp;{{question.text}}</p>
             <ace-editor theme="github" mode="sql" style=" min-height: 150px; overflow: auto;"
                         [(ngModel)]="question.answer.text"></ace-editor>
-
-            <!--            <textarea class="ml-1" rows=6 style=" width:100%;" placeholder="Введите ответ" [(ngModel)]="question.answer.text"></textarea>-->
           </div>
         </div>
       </li>
@@ -45,8 +40,6 @@
               <div class="col-md mr-1 ml-1">
                 <ace-editor theme="github" mode="sql" style=" min-height: 150px; overflow: auto;"
                             [(ngModel)]="question.answer.text"></ace-editor>
-
-                <!--              <textarea style=" width:100%;" rows=6 placeholder="Введите ответ" id="answerTextarea" [(ngModel)]="question.answer.text"></textarea>-->
               </div>
             </div>
           </div>
@@ -61,9 +54,4 @@
       <button class="btn btn-secondary" (click)="onSaveTest()">Сохранить тест</button>
     </ng-container>
   </div>
-  <!--  <div class="col-md-1">-->
-  <!--    <button type="button" class="btn btn-default btn-sm" (click)="onCreateTestClick()">-->
-  <!--      <i class="fas fa-plus"></i>-->
-  <!--    </button>-->
-  <!--  </div>-->
 </div>

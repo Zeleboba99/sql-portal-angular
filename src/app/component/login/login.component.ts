@@ -61,7 +61,6 @@ export class LoginComponent implements OnInit {
           }},
         error => {
           this.serverError = 'Данные некорректны';
-          // this.serverError = error.error.message;
         }
       );
   }

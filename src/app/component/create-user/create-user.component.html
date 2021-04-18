@@ -19,7 +19,6 @@
   <select class="form-control" name="userRole" #userRole=ngModel [(ngModel)]="user.role" required>
     <option name="optionDbId" *ngFor="let role of roles" [ngValue]="role.name">{{role.rusName}}</option>
   </select>
-<!--  <input type="text" name="userRole" class="form-control" placeholder="Роль" [(ngModel)]="user.role">-->
 
   <label class="mt-2 ml-4">Пароль</label>
   <input type="password" name="userPswd" #userPswd=ngModel class="form-control" placeholder="Пароль" [(ngModel)]="user.password" required>

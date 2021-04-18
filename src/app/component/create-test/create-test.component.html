@@ -16,6 +16,17 @@
   </div>
   <label class="mt-2 ml-4">Максимальное число попыток</label>
   <input type="number" name="testMaxAttemptCnt" class="form-control" placeholder="Максимальное число попыток" [(ngModel)]="test.maxAttemptsCnt">
+  <label class="mt-2 ml-4">Добавить после</label>
+  <p class="m-0 p-0">
+  <select class="form-control" name="selectedPreviousTestModel" #selectedPreviousTestModel=ngModel [(ngModel)]="test.previousTestId" required>
+    <option name="optionPreviousTestId" *ngFor="let t of tests" [ngValue]="t.id">{{t.name}}</option>
+  </select></p>
+  <div *ngIf="selectedPreviousTestModel.invalid && (selectedPreviousTestModel.dirty || selectedPreviousTestModel.touched)"
+       class="alert alert-danger">
+    <div *ngIf="selectedPreviousTestModel.errors.required">
+      Пожалуйста, укажите предыдущий тест.
+    </div>
+  </div>
   <label class="mt-2 ml-4">База данных</label>
   <select class="form-control" name="selectedDbModel" #selectedDbModel=ngModel [(ngModel)]="selectedDbId" required>
     <option name="optionDbId" *ngFor="let db of dbs" [ngValue]="db.id">{{db.name}}</option>

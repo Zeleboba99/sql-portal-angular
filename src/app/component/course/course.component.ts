@@ -19,6 +19,8 @@ export class CourseComponent implements OnInit {
   public course_id: number;
   public isCurrentUserTeacher = false;
   public selectedTest = null;
+  public remainingAttempts = new Map<number, number>();
+  bb: boolean = false;
 
   constructor(private router: Router,
               private courseService: CourseService,
@@ -34,7 +36,19 @@ export class CourseComponent implements OnInit {
         res => {
           this.course = res;
           this.testService.getAllTestForCourse(this.course_id).subscribe(
-            result => { this.tests = result; },
+            result => {
+              this.tests = result;
+              this.tests.forEach(t => {
+                this.testService.getAttemptsForTest(t.id).subscribe(
+                  attemptsRes => {
+                    this.remainingAttempts.set(t.id, t.maxAttemptsCnt - attemptsRes.length);
+                  },
+                  error => {
+                    this.serverError = error.error.message;
+                  }
+                );
+              })
+              },
             error => { this.serverError = error.error.message; }
           );
           },
@@ -44,7 +58,9 @@ export class CourseComponent implements OnInit {
   }
 
   onTestClick(test: Test) {
-    this.router.navigate(['test'], {queryParams: {course_id: this.course_id, test_id: test.id, db_id: test.dbLocation.id}});
+    if (this.remainingAttempts.get(test.id)) {
+      this.router.navigate(['test'], {queryParams: {course_id: this.course_id, test_id: test.id, db_id: test.dbLocation.id}});
+    }
   }
 
   onCreateTestClick() {
@@ -55,7 +71,7 @@ export class CourseComponent implements OnInit {
     this.testService.deleteTest(this.selectedTest.id).subscribe(
       res => {
         $('#deleteModal').modal('hide');
-        this.reloadCurrentRoute();
+        this.ngOnInit();
       }, error => {
         this.serverError = error.error.message;
       }
@@ -78,12 +94,16 @@ export class CourseComponent implements OnInit {
 
   private reloadCurrentRoute() {
     const currentUrl = this.router.url;
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    this.router.navigateByUrl('/all-courses', {skipLocationChange: true}).then(() => {
       this.router.navigate([currentUrl]);
     });
   }
 
   onCheckTestResults(test_id: number) {
     this.router.navigate(['choose-user'], {queryParams: {test_id: test_id}});
+  }
+
+  onCheckAttempts(test_id: number) {
+    this.router.navigate(['attempts'], {queryParams: {test_id: test_id}});
   }
 }

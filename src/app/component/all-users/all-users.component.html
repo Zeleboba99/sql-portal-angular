@@ -1,10 +1,12 @@
 <h5 style="text-align: center">Пользователи</h5>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
-    <a class="nav-link active" id="student-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true" (click)="onStudentsClick()">Студенты</a>
+    <a class="nav-link active" id="student-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true"
+       (click)="onStudentsClick()">Студенты</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="teacher-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false" (click)="onTeachersClick()">Преподаватели</a>
+    <a class="nav-link" id="teacher-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false"
+       (click)="onTeachersClick()">Преподаватели</a>
   </li>
 </ul>
 <div class="row">
@@ -23,25 +25,24 @@
               </div>
               <div class="col-md-2 d-flex justify-content-end">
                 <p class="d-inline">
-                  <button class="btn btn-sm btn-outline-secondary" (click)="onEditUser(user.id)"><i
-                    class="fas fa-edit fa-xs"></i></button>
+                  <button class="btn btn-sm btn-outline-secondary" title="Редактировать" (click)="onEditUser(user.id)">
+                    <i
+                      class="fas fa-edit fa-xs"></i></button>
                 </p>
                 <p class="d-inline">
-                  <button class="btn btn-sm  btn-outline-secondary" data-toggle="modal" data-target="#deleteModal"
+                  <button class="btn btn-sm  btn-outline-secondary" title="Удалить" data-toggle="modal"
+                          data-target="#deleteModal"
                           (click)="onSelectUser($event, user)"><i class="fas fa-trash-alt fa-xs"></i></button>
                 </p>
               </div>
             </div>
-            <!--            <div class="d-flex flex-row-reverse">-->
-            <!--              {{db.createdAt | date:'medium'}}-->
-            <!--            </div>-->
           </div>
         </div>
       </li>
     </ul>
   </div>
   <div class="col-md-1">
-    <button type="button" class="btn btn-default btn-sm" (click)="onCreateUserClick()">
+    <button type="button" class="btn btn-default btn-sm" title="Создать пользователя" (click)="onCreateUserClick()">
       <i class="fas fa-plus"></i>
     </button>
   </div>

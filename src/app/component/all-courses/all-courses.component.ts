@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {CourseService} from '../../service/course.service';
-import {Db} from '../../model/db';
+import {DbInfo} from '../../model/db-info';
 import {Course} from '../../model/course';
 import {AuthService} from '../../service/auth.service';
 
@@ -75,8 +75,6 @@ export class AllCoursesComponent implements OnInit {
   onSelectCourse(event, course: Course) {
     event.stopPropagation();
     this.selectedCourse = course;
-    // document.getElementById('deleteModal').modal('show');
-
     $('#deleteModal').modal('show');
   }
 

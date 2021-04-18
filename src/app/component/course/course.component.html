@@ -9,6 +9,9 @@
 <div class="row">
   <div class="col-md-11">
     <div *ngIf="serverError" class="alert alert-danger">{{serverError}}</div>
+    <div *ngIf="!tests || !tests.length">
+      Тесты не найдены
+    </div>
     <ul class="list-group">
       <li class="list-group-item interactive" *ngFor="let test of tests" (click)="onTestClick(test)">
         <div class="row">
@@ -16,17 +19,24 @@
             <div class="row">
               <div class="col-md-10">
                 <div>
-                  <h6>Тест: {{test.name}}</h6>
-                  <p class="mb-0">Число попыток: {{test.maxAttemptsCnt}}</p>
+                  <h6>{{tests.indexOf(test)+1}}. Тест: {{test.name}}</h6>
+                  <p class="mb-0">Общее число доступных попыток: {{test.maxAttemptsCnt}}</p>
+                  <p class="mb-0"
+                     *ngIf="authService.isCurrentUserStudent()">Оставшееся число попыток: {{remainingAttempts.get(test.id)}}</p>
                 </div>
-
+              </div>
+              <div class="col-md-2 d-flex justify-content-end" *ngIf="authService.isCurrentUserStudent()">
+                <p class="d-inline">
+                  <button class="btn btn-sm btn-outline-secondary" title="Посмотреть попытки" (click)="onCheckAttempts(test.id)"><i
+                    class="fas fa-check"></i></button>
+                </p>
               </div>
               <div class="col-md-2 d-flex justify-content-end" *ngIf="isCurrentUserAuthor(course)">
                 <p class="d-inline">
-                  <button class="btn btn-sm btn-outline-secondary" (click)="onCheckTestResults(test.id)"><i
-                    class="fas fa-check"></i></button>
+                  <button class="btn btn-sm btn-outline-secondary" title="Проверить ответы студентов" (click)="onCheckTestResults(test.id)"><i
+                    class="fas fa-check"></i></button></p>
                 <p class="d-inline">
-                  <button class="btn btn-sm btn-outline-secondary" (click)="onEditTest(test.id)"><i
+                  <button class="btn btn-sm btn-outline-secondary" title="Редкатировать" (click)="onEditTest(test.id)"><i
                     class="fas fa-edit fa-xs"></i></button>
                 </p>
                 <p class="d-inline">
@@ -56,7 +66,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <strong>Удалить курс {{selectedTest.name}}?</strong>
+        <strong>Удалить тест {{selectedTest.name}}?</strong>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>

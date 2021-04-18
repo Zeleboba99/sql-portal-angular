@@ -1,30 +1,53 @@
 <h5 style="text-align: center">Загрузить базу данных</h5>
 <div class="row">
   <label class="mt-2 ml-4">Название базы данных</label>
-  <input type="text" name="dbname" #dbname=ngModel [(ngModel)]="db_name" placeholder="Название базы данных" class="form-control" required>
+  <input type="text" name="dbname" #dbname=ngModel [(ngModel)]="db_name" placeholder="Название базы данных"
+         class="form-control" required>
   <div *ngIf="dbname.invalid && (dbname.dirty || dbname.touched)"
        class="alert alert-danger">
     <div *ngIf="dbname.errors.required">
       Пожалуйста, укажите название базы данных.
     </div>
   </div>
+  <div class="col-md-4">
+    <div class="schema-img">
+      <input type="file" class="btn btn-outline-secondary btn-sm" name="file" (change)="onSchemaImageFileChanged($event)"/>
+    </div>
+    <div *ngIf="error"><small class="text-danger">{{error}}</small></div>
+    <img [src]="imgURL" height="200" *ngIf="imgURL">
+  </div>
 </div>
-<form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
-  <label class="mt-2 ml-2">Файл с базой данных</label>
-    <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse" data-target="#collapseInfo" aria-expanded="false" aria-controls="collapseExample">
+<div class="row">
+  <div class="col-md">
+    <label class="mt-2 ml-2">Файл с базой данных</label>
+    <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse" data-target="#collapseInfo"
+            aria-expanded="false" aria-controls="collapseExample">
       <i class="far fa-question-circle"></i>
     </button>
-  <div class="collapse" id="collapseInfo">
-    <div >
-      Some info about datasource file structure.
-    </div>
+    <button class="btn btn-outline-secondary btn-sm" type="button" title="Протестировать перед загрузкой"
+            (click)="onTestDb()"><i class="fas fa-check"></i></button>
   </div>
-  <div class="row">
-    <div class="custom-file">
-      <input type="file" class="custom-file-input" id="customFile" name="myfile"
-             (change)="onFileSelect($event)" #UploadFileInput required>
-      <label class="custom-file-label" for="customFile">{{fileInputLabel || 'Выберите файл'}}</label>
-      <button [disabled]="dbname.invalid || !fileInputLabel" class="btn btn-secondary" type="submit">Загрузить</button>
-    </div>
+</div>
+<div class="collapse" id="collapseInfo">
+  <div>
+    Some info about datasource file structure.
   </div>
-</form>
+</div>
+<div class="row">
+  <div class="col-md">
+    <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
+      <div class="row">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="customFile" name="myfile"
+                 (change)="onFileSelect($event)" #UploadFileInput required>
+          <label class="custom-file-label" for="customFile">{{fileInputLabel || 'Выберите файл'}}</label>
+          <button [disabled]="dbname.invalid || !fileInputLabel" class="btn btn-secondary" type="submit">Загрузить
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+

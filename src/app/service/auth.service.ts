@@ -39,10 +39,6 @@ export class AuthService {
     return this.http.post(this.BASE_URL + '/signin', signInData, httpOptions);
   }
 
-  signup(signUpData) {
-    return this.http.post(this.BASE_URL + '/signup', signUpData);
-  }
-
   saveToken(token: string) {
     // var expireDate = new Date().getTime() + (1000 * token.expires_in);
     this.cookieService.put(environment.ACCESS_TOKEN, token);
@@ -60,5 +56,13 @@ export class AuthService {
 
   public isCurrentUserTeacher(): boolean {
     return this.cookieService.get(this.ROLE) === 'TEACHER';
+  }
+
+  public isCurrentUserStudent(): boolean {
+    return this.cookieService.get(this.ROLE) === 'STUDENT';
+  }
+
+  changePassword(newPassword: string) {
+    return this.http.patch(this.BASE_URL + '/users/changePassword', newPassword);
   }
 }

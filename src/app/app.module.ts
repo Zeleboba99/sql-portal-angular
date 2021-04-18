@@ -7,7 +7,6 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BaseUrlInterceptor} from './service/interceptor/base-url-interceptor';
 import {ExcelService} from './service/excel.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { TaskComponent } from './component/task/task.component';
 import { AllDbsComponent } from './component/all-dbs/all-dbs.component';
 import { AllCoursesComponent } from './component/all-courses/all-courses.component';
 import {UserService} from './service/user.service';
@@ -43,7 +42,6 @@ registerLocaleData(localeRu, 'ru');
   declarations: [
     AppComponent,
     CreateDbComponent,
-    TaskComponent,
     AllDbsComponent,
     AllCoursesComponent,
     LoginComponent,
@@ -68,7 +66,6 @@ registerLocaleData(localeRu, 'ru');
     RouterModule.forRoot(
       [
         {path: 'create-db', component: CreateDbComponent, canActivate: [AccessGuard]},
-        {path: 'task', component: TaskComponent, canActivate: [AccessGuard]},
         {path: 'all-dbs', component: AllDbsComponent, canActivate: [AccessGuard]},
         {path: 'all-courses', component: AllCoursesComponent, canActivate: [AccessGuard]},
         {path: 'login', component: LoginComponent},

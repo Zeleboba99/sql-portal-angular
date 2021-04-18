@@ -29,6 +29,10 @@ export class UserService {
     return this.http.get(this.BASE_URL + '/users/students?page=' + page + '&size=' + size);
   }
 
+  getAllStudentsBySearch(search: string, page: number, size: number) {
+    return this.http.get(this.BASE_URL + '/users/students?page=' + page + '&size=' + size + '&search=' + search);
+  }
+
   getAllTeachers(page: number, size: number) {
     return this.http.get(this.BASE_URL + '/users/teachers?page=' + page + '&size=' + size);
   }
